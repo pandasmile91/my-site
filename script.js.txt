@@ -1,3 +1,89 @@
-document.getElementById("btn").addEventListener("click", () => {
-  document.getElementById("text").textContent = "Кнопка работает 🎉";
+const promptInput = document.getElementById("prompt");
+const styleInput = document.getElementById("style");
+const durationInput = document.getElementById("duration");
+const motionInput = document.getElementById("motion");
+const paletteInput = document.getElementById("palette");
+const generateButton = document.getElementById("generate");
+const resetButton = document.getElementById("reset");
+const progressText = document.getElementById("progressText");
+const progressBar = document.getElementById("progressBar");
+const outputPrompt = document.getElementById("outputPrompt");
+const outputSettings = document.getElementById("outputSettings");
+const previewTitle = document.getElementById("previewTitle");
+const playVideo = document.getElementById("playVideo");
+const downloadImage = document.getElementById("downloadImage");
+
+const steps = [
+  "Анализируем запрос…",
+  "Готовим 1280×720 кадр…",
+  "Собираем видеоряд…",
+  "Добавляем цвет и свет…",
+  "Готово!",
+];
+
+let progressTimer = null;
+
+const updateProgress = (percent, text) => {
+  progressBar.style.width = `${percent}%`;
+  progressText.textContent = text;
+};
+
+const buildSettings = () =>
+  `${styleInput.value} · ${motionInput.value} · ${paletteInput.value} палитра · ${durationInput.value}`;
+
+const stopProgress = () => {
+  if (progressTimer) {
+    clearInterval(progressTimer);
+    progressTimer = null;
+  }
+};
+
+const startGeneration = () => {
+  stopProgress();
+  let progress = 0;
+  let stepIndex = 0;
+  updateProgress(progress, steps[stepIndex]);
+
+  progressTimer = setInterval(() => {
+    progress += 20;
+    stepIndex = Math.min(stepIndex + 1, steps.length - 1);
+    updateProgress(progress, steps[stepIndex]);
+
+    if (progress >= 100) {
+      stopProgress();
+    }
+  }, 700);
+};
+
+generateButton.addEventListener("click", () => {
+  const prompt = promptInput.value.trim() || "Город будущего на рассвете";
+  outputPrompt.textContent = prompt;
+  previewTitle.textContent = prompt;
+  outputSettings.textContent = buildSettings();
+  startGeneration();
+});
+
+resetButton.addEventListener("click", () => {
+  promptInput.value = "";
+  styleInput.selectedIndex = 0;
+  durationInput.selectedIndex = 0;
+  motionInput.selectedIndex = 0;
+  paletteInput.selectedIndex = 0;
+  outputPrompt.textContent =
+    "Город будущего на рассвете, мягкий свет, лёгкий туман.";
+  outputSettings.textContent =
+    "Кинематографичный · Плавная · Тёплая палитра";
+  previewTitle.textContent = "Город будущего на рассвете";
+  updateProgress(0, "Готовы к генерации.");
+  stopProgress();
+});
+
+playVideo.addEventListener("click", () => {
+  progressText.textContent =
+    "Видео открыто в предпросмотре. В демо доступно без генерации.";
+});
+
+downloadImage.addEventListener("click", () => {
+  progressText.textContent =
+    "Файл изображения подготовлен. В демо доступно без генерации.";
 });
