@@ -1,3 +1,13 @@
-document.getElementById("btn").addEventListener("click", () => {
-  document.getElementById("text").textContent = "Кнопка работает 🎉";
+const button = document.getElementById("btn");
+const text = document.getElementById("text");
+const steps = document.getElementById("steps");
+
+button.addEventListener("click", () => {
+  const isComplete = steps.classList.toggle("is-complete");
+  text.textContent = isComplete
+    ? "Отлично! Этапы согласованы и готовы к работе."
+    : "Ниже — краткая структура, чтобы ничего не упустить при подготовке видео.";
+  button.textContent = isComplete
+    ? "Снять отметку согласования"
+    : "Отметить этапы как согласованные";
 });
