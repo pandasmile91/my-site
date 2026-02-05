@@ -3,15 +3,134 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Мой сайт</title>
+  <title>Text2Media Studio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="wrap">
-    <h1>Привет! Это мой сайт</h1>
-    <p id="text">Сайт работает ✅</p>
-    <button id="btn">Нажми меня</button>
+  <header class="hero">
+    <div class="hero__content">
+      <p class="badge">Генерация фото + видео</p>
+      <h1>Text2Media Studio</h1>
+      <p class="subtitle">
+        Создавайте 1280×720 (16:9) фото и видео по одному текстовому запросу.
+        Полный контроль: стиль, продолжительность, динамика и цвет.
+      </p>
+      <div class="hero__stats">
+        <div>
+          <span class="label">Формат</span>
+          <strong>1280×720</strong>
+        </div>
+        <div>
+          <span class="label">Вывод</span>
+          <strong>Фото + Видео</strong>
+        </div>
+        <div>
+          <span class="label">Очередь</span>
+          <strong>~45 сек</strong>
+        </div>
+      </div>
+    </div>
+    <div class="hero__preview">
+      <div class="preview">
+        <div class="preview__frame">
+          <div class="preview__overlay">
+            <span>Превью 1280×720</span>
+            <strong id="previewTitle">Город будущего на рассвете</strong>
+          </div>
+        </div>
+        <div class="preview__actions">
+          <button class="btn btn--ghost" id="playVideo">▶ Смотреть видео</button>
+          <button class="btn" id="downloadImage">⬇ Скачать фото</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="panel">
+      <h2>Создать генерацию</h2>
+      <p class="muted">Опишите сцену, персонажей и настроение — система сформирует фото и короткий ролик.</p>
+      <label class="field">
+        <span>Текстовый запрос</span>
+        <textarea id="prompt" rows="5" placeholder="Например: неоновый мегаполис, дрон пролетает над улицами, мягкий дождь, кинематографичный свет"></textarea>
+      </label>
+      <div class="grid">
+        <label class="field">
+          <span>Стиль</span>
+          <select id="style">
+            <option>Кинематографичный</option>
+            <option>Футуризм</option>
+            <option>Фотореализм</option>
+            <option>Аниме</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Длительность видео</span>
+          <select id="duration">
+            <option>6 сек</option>
+            <option>10 сек</option>
+            <option>15 сек</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Динамика</span>
+          <select id="motion">
+            <option>Плавная</option>
+            <option>Энергичная</option>
+            <option>Медитативная</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Цветовая палитра</span>
+          <select id="palette">
+            <option>Тёплая</option>
+            <option>Холодная</option>
+            <option>Неон</option>
+          </select>
+        </label>
+      </div>
+      <div class="panel__actions">
+        <button class="btn btn--primary" id="generate">Сгенерировать фото + видео</button>
+        <button class="btn btn--ghost" id="reset">Сбросить</button>
+      </div>
+      <div class="progress" aria-live="polite">
+        <span id="progressText">Готовы к генерации.</span>
+        <div class="progress__bar"><span id="progressBar"></span></div>
+      </div>
+    </section>
+
+    <section class="panel panel--secondary">
+      <h2>Готовые материалы</h2>
+      <div class="output">
+        <div class="output__card">
+          <div class="output__thumb">Фото 1280×720</div>
+          <div>
+            <h3>Сцена</h3>
+            <p id="outputPrompt" class="muted">Город будущего на рассвете, мягкий свет, лёгкий туман.</p>
+          </div>
+        </div>
+        <div class="output__card">
+          <div class="output__thumb output__thumb--video">Видео 10 сек</div>
+          <div>
+            <h3>Анимация</h3>
+            <p id="outputSettings" class="muted">Кинематографичный · Плавная · Тёплая палитра</p>
+          </div>
+        </div>
+      </div>
+      <div class="tips">
+        <h3>Подсказки</h3>
+        <ul>
+          <li>Сразу указывайте главный объект и настроение.</li>
+          <li>Добавляйте движение: «камера летит», «волны колышутся».</li>
+          <li>Для 16:9 держите ключевые объекты по центру кадра.</li>
+        </ul>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <p>Text2Media Studio · Демонстрация концепта генератора фото и видео.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
